@@ -30,8 +30,18 @@ export const bookSlice = createSlice({
             ||(obj.tel !== action.payload.tel) || (obj.venue !== action.payload.venue));
             })
             state.bookItems = remainItems
+        },
+        editBooking: (state, action: PayloadAction<BookingItem>) => {
+          const index = state.bookItems.findIndex(
+            (item) =>
+              item.bookingId === action.payload.bookingId
+          );
+          if (index !== -1) {
+            state.bookItems[index] = action.payload;
+          }
+          else return
         }
     }
 })
-export const {addBooking , removeBooking} = bookSlice.actions
+export const {addBooking , removeBooking,editBooking} = bookSlice.actions
 export default bookSlice.reducer

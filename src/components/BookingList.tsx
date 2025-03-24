@@ -3,6 +3,7 @@ import { AppDispatch, useAppSelector } from "@/redux/store"
 import { BookingItem } from "../../interface"
 import { removeBooking } from "@/redux/features/bookSlice"
 import { useDispatch } from "react-redux"
+import Link from "next/link"
 
 
 export default function BookingList(){
@@ -25,6 +26,11 @@ export default function BookingList(){
                     
                     <button name="Book Venue" className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
                     shadow-sm text-white" onClick={()=>dispatch(removeBooking(bookingItem))}>Remove booking</button>
+                    <Link href={`/editbooking?id=${bookingItem.bookingId}`}>
+<button name="Edit Booking" className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 my-2 text-white shadow-sm">
+    Edit Booking
+    </button>
+</Link>
                 </div>  
             )) 
 

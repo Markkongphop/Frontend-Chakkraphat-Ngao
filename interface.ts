@@ -20,6 +20,7 @@ export interface VenueJson {
   }
 
 export interface BookingItem {
+    bookingId: string;
     nameLastname: string;
     tel: string;
     venue: string;

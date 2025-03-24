@@ -6,50 +6,42 @@ import { useState } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/redux/store"
-import { addBooking } from "@/redux/features/bookSlice"
 import { BookingItem } from "../../../interface"
 import { default as TextField } from "@mui/material"
+import { addBooking, editBooking } from "@/redux/features/bookSlice"
 
-export default function Booking(){
+export default function EditBooking(){
     
-    
-        // const session = await getServerSession(authOptions)
-        // if(!session || !session.user.token )return null
-    
-        // const profile = await getUserProfile(session.user.token)
-        // var createdAt = new Date(profile.data.createdAt)
-
-        const generateBookingId = (): string => {
-            const randomNumber = Math.floor(100000 + Math.random() * 900000); // สุ่มตัวเลข 6 หลัก
-            return randomNumber.toString(); // แปลงตัวเลขเป็นสตริง
-        };
 
         const [nameLastname, setNameLastname] = useState<string>('')
         const [contactNumber, setContactNumber] = useState<string>('')
         const [venueName, setVenueName] = useState<string>('')
         const [bookingDate, setBookingDate] = useState<Dayjs|null>(null)
 
+        const urlParam = useSearchParams()
+        const id = urlParam.get('id')
+
         const dispatch = useDispatch<AppDispatch>() 
 
         const makeBooking = () => {
             
-            if ( nameLastname && contactNumber && venueName && bookingDate){
+            if ( nameLastname && contactNumber && venueName && bookingDate && id){
                 alert("complete");
                 const item:BookingItem = {
-                    bookingId: generateBookingId(),
+                    bookingId: id,
                     nameLastname: nameLastname,
                     tel: contactNumber,
                     venue: venueName,
                     bookDate: dayjs(bookingDate).format("YYYY/MM/DD")
                 }
-                dispatch(addBooking(item))
+                dispatch(editBooking(item))
             }
         }
 
     return(
         <main className="w-[100%] 
         flex flex-col items-center space-y-4">
-            <div>Venue Booking</div>
+            <div>Edit Your Booking</div>
 
             {/* <div className="text-2xl">{profile.data.name}</div> */}
             {/* <table><tbody>
@@ -70,7 +62,7 @@ export default function Booking(){
             />  
 
             <button name="Book Venue" className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
-            shadow-sm text-white" onClick={()=>{makeBooking()}}>Book Venue</button>
+            shadow-sm text-white" onClick={()=>{makeBooking()}}>Confirm</button>
 
 
 
