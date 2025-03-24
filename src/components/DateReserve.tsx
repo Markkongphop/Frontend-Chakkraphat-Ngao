@@ -15,32 +15,65 @@ export default function DateReserve({ handleNameChange,handleContactChange, onVe
     const [bookingDate, setBookingDate] = useState<Dayjs|null>(null)
 
     return(
-        <div className="bg-slate-100 rounded-lg space-x-5 space-y-2
-        w-fit px-10 py-5 flex flex-row justify-canter">
-            
-            <TextField id="outlined-basic" label="Name-Lastname" 
-                name="Name-Lastname" placeholder="Name-Lastname" 
-                variant="standard" value={nameLastname} onChange={(e)=>{ setNameLastname(e.target.value),handleNameChange(e.target.value)}} />
+        <div className="bg-white rounded-2xl shadow-md space-y-4 w-full px-8 py-6 flex flex-col justify-center items-center">
+            <TextField
+                id="name"
+                label="Name - Lastname"
+                placeholder="Enter your name"
+                variant="outlined"
+                fullWidth
+                value={nameLastname}
+                onChange={(e) => {
+                    setNameLastname(e.target.value);
+                    handleNameChange(e.target.value);
+                }}
+                className="shadow-sm"
+            />
 
-            <TextField id="outlined-basic" label="Contact-Number" 
-                name="Contact-Number" placeholder="Contact-Number" 
-                variant="standard" value={contactNumber} onChange={(e)=>{ setContactNumber(e.target.value),handleContactChange(e.target.value)}} />
+            <TextField
+                id="contact"
+                label="Contact Number"
+                placeholder="Enter your phone number"
+                variant="outlined"
+                fullWidth
+                value={contactNumber}
+                onChange={(e) => {
+                    setContactNumber(e.target.value);
+                    handleContactChange(e.target.value);
+                }}
+                className="shadow-sm"
+            />
 
-            <Select variant='standard' name="venue" id="venue" className="h-[2em] w-[200px]" 
-                value={venueName} onChange={(e)=>{ setVenueName(e.target.value); onVenueChange(e.target.value);}}>
+            <Select
+                variant="outlined"
+                fullWidth
+                displayEmpty
+                value={venueName}
+                onChange={(e) => {
+                    setVenueName(e.target.value);
+                    onVenueChange(e.target.value);
+                }}
+                className="shadow-sm"
+            >
+            <MenuItem value="" disabled>
+                Select a Place
+            </MenuItem>
             <MenuItem value="Bloom">The Bloom Pavilion</MenuItem>
             <MenuItem value="Spark">Spark Space</MenuItem>
             <MenuItem value="GrandTable">The Grand Table</MenuItem>
-            </Select>
+        </Select>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker className="bg-white "
-                value={bookingDate}
-                onChange={(value)=>{setBookingDate(value); onDateChange(value)}}/>
-            </LocalizationProvider>
-
-            
-
-        </div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          className="bg-white shadow-sm w-full"
+          value={bookingDate}
+          onChange={(value) => {
+            setBookingDate(value);
+            onDateChange(value);
+          }}
+          slotProps={{ textField: { fullWidth: true, variant: "outlined" } }}
+        />
+      </LocalizationProvider>
+    </div>
     )
 }

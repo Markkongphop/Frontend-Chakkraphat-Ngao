@@ -47,33 +47,22 @@ export default function Booking(){
         }
 
     return(
-        <main className="w-[100%] 
-        flex flex-col items-center space-y-4">
-            <div>Venue Booking</div>
-
-            {/* <div className="text-2xl">{profile.data.name}</div> */}
-            {/* <table><tbody>
-
-            <tr><td>Name</td><td>{profile.data.name}</td></tr>
-            <tr><td>Email</td><td>{profile.data.email}</td></tr>
-            <tr><td>Tel.</td><td>{profile.data.tel}</td></tr>
-            <tr><td>Member Since</td><td>{createdAt.toString()}</td></tr>
-            
-            </tbody>
-
-            </table> */}
-            <DateReserve 
-            handleNameChange={(value:string)=>{setNameLastname(value)}}
-            handleContactChange={(value:string)=>{setContactNumber(value)}}
-            onDateChange={(value:Dayjs)=>{setBookingDate(value)}}
-            onVenueChange={(value:string)=>{setVenueName(value)}}
-            />  
-
-            <button name="Book Venue" className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
-            shadow-sm text-white" onClick={()=>{makeBooking()}}>Book Venue</button>
-
-
-
-        </main>
+        <main className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-green-150 p-6">
+            <div className="text-4xl font-bold text-gray-800 mb-6 drop-shadow-md">Co-Working Reservation</div>
+            <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md flex flex-col items-center space-y-6">
+            <DateReserve
+                handleNameChange={(value: string) => setNameLastname(value)}
+                handleContactChange={(value: string) => setContactNumber(value)}
+                onDateChange={(value: Dayjs) => setBookingDate(value)}
+                onVenueChange={(value: string) => setVenueName(value)}
+            />
+            <button
+                className="w-full rounded-xl bg-gradient-to-r from-green-400 to-green-600 hover:from-green-600 hover:to-green-400 px-4 py-2 text-white font-semibold shadow-lg transition-all transform hover:scale-105 duration-300 ease-in-out"
+                onClick={makeBooking}
+            >
+            Reserve
+            </button>
+            </div>
+    </main>
     )
 }

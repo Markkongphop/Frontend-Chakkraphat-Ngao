@@ -23,10 +23,10 @@ export default async function TopMenu() {
                     )
                 }
                 <Link href="/booking">
-                    <div className={`${styles.blueButton} flex items-center`}>Booking</div>
+                    <div className={`${styles.blueButton} flex items-center`}>Reservation</div>
                 </Link>
                 <Link href="/mybooking">
-                    <div className={`${styles.blueButton} flex items-center`}>My Booking</div>
+                    <div className={`${styles.blueButton} flex items-center`}>My Reservation</div>
                 </Link>
             </div>
 
