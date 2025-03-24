@@ -1,19 +1,85 @@
-.banner{
-    display:block;
-    padding: 5px;
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     width: 100vw;
     height: 70vh;
     position: relative;
-
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
+    background-color: #f9f9f9;
 }
 
-.bannerText{
+.bannerText {
     text-align: center;
-    z-index: 20px;
-    color: rgb(255, 255, 255);
-    top: 230px;
-    position: relative;
-    text-shadow: 0 0 10px rgb(0, 0, 0);
+    z-index: 20;
+    color: #333333;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(200, 200, 200, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+    font-weight: 500;
+    font-size: 18px;
+    animation: fadeIn 1.2s ease-in-out;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.selectButton {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    transition: all 0.3s ease;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+}
+
+.selectButton:hover {
+    background: linear-gradient(135deg, #2E7D32, #1B5E20);
+    transform: scale(1.1);
+}
+
+/* Arrow Buttons */
+.arrowButton {
+    font-size: 2rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 30;
+}
+
+.arrowButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.leftArrow {
+    left: 20px;
+}
+
+.rightArrow {
+    right: 20px;
+}
