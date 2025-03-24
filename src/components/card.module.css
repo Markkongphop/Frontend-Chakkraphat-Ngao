@@ -1,0 +1,25 @@
+.card{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 250px;
+    height: 300px;
+    background-color: white;
+    padding-top: 10px;
+}
+.cardimg{
+    width: 100%;
+    height: 70%;
+    position: relative;
+}
+
+.cardHeadText{
+    height: 30%;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.cardText{
+    height: 30%;
+    padding: 10px;
+    font-weight:200;
+}
