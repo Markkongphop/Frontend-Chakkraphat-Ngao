@@ -1,5 +1,3 @@
-// src/app/makeBooking/page.tsx
-
 "use client";
 
 import DateReserve from "@/components/DateReserve";
@@ -7,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 
 export default function Booking() {
     const [apptDate, setApptDate] = useState<Dayjs | null>(null);
@@ -15,6 +14,19 @@ export default function Booking() {
     const { data: session } = useSession();
 
     const makeBooking = async () => {
+        if (!apptDate) {
+            alert('Please select a date.');
+            return;
+        }
+
+        const today = dayjs().startOf('day');
+        const selectedDate = dayjs(apptDate).startOf('day');
+
+        if (selectedDate.isBefore(today)) {
+            alert('Please select a future date.');
+            return;
+        }
+
         if (apptDate && coworkingSpace && session?.user.accessToken) {
             try {
                 console.log("Token:", session.user.accessToken);
@@ -25,9 +37,8 @@ export default function Booking() {
                         Authorization: `Bearer ${session.user?.accessToken}`,
                     },
                     body: JSON.stringify({
-                      coworkingSpaceId: coworkingSpace,
+                        coworkingSpaceId: coworkingSpace,
                         apptDate: dayjs(apptDate).format("YYYY-MM-DD"),
-                         // Add userId to the body
                     }),
                 });
 

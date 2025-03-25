@@ -9,23 +9,26 @@ export default async function VenueCatalog({venuesJson}:{venuesJson:VenueJson}){
 
     const venueJsonReady = await venuesJson
 
-    return(
+    return (
         <>
-        Explore {venueJsonReady.count} venues in our catalog
-        <div style={{margin:"20px",display:"flex",
-                          flexDirection:"row",flexWrap:"wrap",
-                          justifyContent:"space-around", alignContent:"space-around", padding:"10px"}}>
-                            {
-                                venueJsonReady.data.map((venueItem:VenueItem)=> (
-                                    <Link href={`/venue/${venueItem.id}`} className="w-1/5">
-                                        <Card venueName={venueItem.name} imgSrc={venueItem.picture}/>
-                                    </Link>
-                                ))
-                            }
-        
-        </div>
+            Explore {venueJsonReady.count} Coworkings
+            <div
+                style={{
+                    margin: "115px",
+                    display: "grid", // ใช้ grid layout แทน flex
+                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", // ปรับขนาด card ให้เล็กลง
+                    gap: "20px", // เพิ่ม gap ระหว่าง card
+                    padding: "10px",
+                }}
+            >
+                {venueJsonReady.data.map((venueItem: VenueItem) => (
+                    <Link href={`/venue/${venueItem._id}`} key={venueItem._id} className="w-full">
+                        <Card venueName={venueItem.name} imgSrc="/img/co.png" />
+                    </Link>
+                ))}
+            </div>
         </>
-    )
+    );
 }
 
 
