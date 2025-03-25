@@ -50,7 +50,8 @@ export default function EditBooking() {
     };
 
     return (
-        <main className="w-[100%] flex flex-col items-center space-y-4">
+        <main className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-green-150 p-6">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md flex flex-col items-center space-y-6">
             <div>Edit Your Reservation</div>
 
             <DateReserve
@@ -67,6 +68,7 @@ export default function EditBooking() {
             >
                 Confirm
             </button>
+            </div>
         </main>
     );
 }
