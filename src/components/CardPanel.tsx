@@ -67,7 +67,7 @@ export default function CardPanel(){
                     {
                         venueResponse.data.map((venueItem:VenueItem)=> (
                             <Link href={`/venue/${venueItem.id}`} className="w-1/5">
-                                <Card venueName={venueItem.name} imgSrc={venueItem.picture} 
+                                <Card venueName={venueItem.name} imgSrc="/img/co.png"
                                 onRating={(venue: string, venueRating: number) => dispatchVenue({ type: 'add', venueName: venue, rating: venueRating })} />
                             </Link>
                         ))

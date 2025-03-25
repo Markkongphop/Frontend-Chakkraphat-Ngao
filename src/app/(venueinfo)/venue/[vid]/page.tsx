@@ -18,20 +18,15 @@ export default async function VenueDetailPage( {params} : {params:{vid:string}})
         <main className="text-center p-5">
             <h1 className="text-lg font-medium">{venueDetail.data.name}</h1>
             <div className="flex flex-row my-5">
-                <Image src={ venueDetail.data.picture}
+                <Image src="/img/co.png"
                 alt='Venue Image'
                 width={0} height={0} sizes="100vw"
                 className="rounded-lg w-[30%]"/>
                 <div className="text-md mx-5 text-left">Name: {venueDetail.data.name}
                     <div>Address: {venueDetail.data.address}</div>
-                    <div>District: {venueDetail.data.district}</div>
-                    <div>Province: {venueDetail.data.province}</div>
-                    <div>Postal Code: {venueDetail.data.postalcode}</div>
                     <div>Tel: {venueDetail.data.tel}</div>
-                    <div>Daily Rate: {venueDetail.data.dailyrate}</div>
-                    <Link href={`/booking?id={}`}>
-
-                    </Link>
+                    <div>OpenTime: {venueDetail.data.Open_time}</div>
+                    <div>CloseTime: {venueDetail.data.Close_time}</div>
                 </div>
 
 
