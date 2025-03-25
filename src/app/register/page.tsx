@@ -24,59 +24,52 @@ function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-semibold mb-6 text-center">Register</h2>
-                {message && <p className={message.startsWith("Registration failed") ? "text-red-500" : "text-green-500"}>{message}</p>}
-                <form className="space-y-4">
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="tel"
-                            placeholder="Telephone"
-                            value={telephone}
-                            onChange={(e) => setTelephone(e.target.value)}
-                            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="User"
-                            disabled
-                            className="w-full px-4 py-2 border rounded bg-gray-200 text-gray-500"
-                        />
-                    </div>
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-700 p-6 relative overflow-hidden">
+            {/* Background Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-radial from-blue-500/30 to-transparent blur-3xl opacity-60"></div>
+            
+            <div className="bg-gray-900 p-10 rounded-2xl shadow-xl w-full max-w-md relative z-10 border border-gray-700">
+                <h2 className="text-3xl font-bold mb-6 text-center text-white">Create an Account</h2>
+                {message && <p className={`text-sm text-center mb-4 ${message.startsWith("Registration failed") ? "text-red-400" : "text-green-400"}`}>{message}</p>}
+                <form className="space-y-5">
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white border-gray-600"
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white border-gray-600"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white border-gray-600"
+                    />
+                    <input
+                        type="tel"
+                        placeholder="Phone Number"
+                        value={telephone}
+                        onChange={(e) => setTelephone(e.target.value)}
+                        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white border-gray-600"
+                    />
+                    <input
+                        type="text"
+                        placeholder="User Type"
+                        disabled
+                        className="w-full px-4 py-3 border rounded-lg bg-gray-700 text-gray-400 shadow-sm cursor-not-allowed border-gray-600"
+                    />
                     <button
                         type="button"
                         onClick={handleRegister}
-                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                        className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium shadow-md transition duration-300 ease-in-out transform hover:bg-blue-700 hover:scale-105 focus:ring-4 focus:ring-blue-400"
                     >
                         Register
                     </button>
