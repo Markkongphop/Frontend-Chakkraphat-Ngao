@@ -19,10 +19,8 @@ export interface VenueJson {
     data: VenueItem[]
   }
 
-export interface BookingItem {
-    bookingId: string;
-    nameLastname: string;
-    tel: string;
-    venue: string;
-    bookDate: string;
+  export interface BookingItem {
+    _id: string; // Assuming _id is the bookingId in your database
+    apptDate: string; // Or Date, depending on how you store it
+    coworkingSpace: string; // Or ObjectId, depending on your database setup
   }

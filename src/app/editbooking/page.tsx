@@ -1,71 +1,71 @@
-"use client"
+// src/app/editBooking/page.tsx
 
-import DateReserve from "@/components/DateReserve"
-import { useSearchParams } from "next/navigation"
-import { useState } from "react"
-import dayjs, { Dayjs } from "dayjs"
-import { useDispatch } from "react-redux"
-import { AppDispatch } from "@/redux/store"
-import { BookingItem } from "../../../interface"
-import { default as TextField } from "@mui/material"
-import { addBooking, editBooking } from "@/redux/features/bookSlice"
+"use client";
 
-export default function EditBooking(){
-    
+import DateReserve from "@/components/DateReserve";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
-        const [nameLastname, setNameLastname] = useState<string>('')
-        const [contactNumber, setContactNumber] = useState<string>('')
-        const [venueName, setVenueName] = useState<string>('')
-        const [bookingDate, setBookingDate] = useState<Dayjs|null>(null)
+export default function EditBooking() {
+  const [apptDate, setApptDate] = useState<Dayjs | null>(null);
+  const [coworkingSpace, setCoworkingSpace] = useState<string>("");
+  const urlParam = useSearchParams();
+  const id = urlParam.get("id");
+  const router = useRouter();
 
-        const urlParam = useSearchParams()
-        const id = urlParam.get('id')
+  useEffect(() => {
+    if (!id) {
+      router.push("/");
+    }
+  }, [id, router]);
 
-        const dispatch = useDispatch<AppDispatch>() 
+  const makeBooking = async () => {
+    if (apptDate && coworkingSpace && id) {
+      try {
+        const response = await fetch(`/api/bookings/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            apptDate: dayjs(apptDate).format("YYYY/MM/DD"),
+            coworkingSpace: coworkingSpace,
+          }),
+        });
 
-        const makeBooking = () => {
-            
-            if ( nameLastname && contactNumber && venueName && bookingDate && id){
-                alert("complete");
-                const item:BookingItem = {
-                    bookingId: id,
-                    nameLastname: nameLastname,
-                    tel: contactNumber,
-                    venue: venueName,
-                    bookDate: dayjs(bookingDate).format("YYYY/MM/DD")
-                }
-                dispatch(editBooking(item))
-            }
+        if (response.ok) {
+          router.push('/');
+        } else {
+          alert('Failed to edit reservation.');
         }
+      } catch (error) {
+        console.error('Error editing reservation:', error);
+        alert('An error occurred.');
+      }
+    } else {
+      alert("Please fill in all fields.");
+    }
+  };
 
-    return(
-        <main className="w-[100%] 
-        flex flex-col items-center space-y-4">
-            <div>Edit Your Booking</div>
+  return (
+    <main className="w-[100%] flex flex-col items-center space-y-4">
+      <div>Edit Your Reservation</div>
 
-            {/* <div className="text-2xl">{profile.data.name}</div> */}
-            {/* <table><tbody>
+      <DateReserve
+        onDateChange={(value: Dayjs | null) => setApptDate(value)}
+        onVenueChange={(value: string) => setCoworkingSpace(value)}
+      />
 
-            <tr><td>Name</td><td>{profile.data.name}</td></tr>
-            <tr><td>Email</td><td>{profile.data.email}</td></tr>
-            <tr><td>Tel.</td><td>{profile.data.tel}</td></tr>
-            <tr><td>Member Since</td><td>{createdAt.toString()}</td></tr>
-            
-            </tbody>
-
-            </table> */}
-            <DateReserve 
-            handleNameChange={(value:string)=>{setNameLastname(value)}}
-            handleContactChange={(value:string)=>{setContactNumber(value)}}
-            onDateChange={(value:Dayjs)=>{setBookingDate(value)}}
-            onVenueChange={(value:string)=>{setVenueName(value)}}
-            />  
-
-            <button name="Book Venue" className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
-            shadow-sm text-white" onClick={()=>{makeBooking()}}>Confirm</button>
-
-
-
-        </main>
-    )
+      <button
+        name="Book Venue"
+        className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 shadow-sm text-white"
+        onClick={() => {
+          makeBooking();
+        }}
+      >
+        Confirm
+      </button>
+    </main>
+  );
 }

@@ -1,68 +1,60 @@
-"use client"
+// src/app/makeBooking/page.tsx
 
-import DateReserve from "@/components/DateReserve"
-import { useSearchParams } from "next/navigation"
-import { useState } from "react"
-import dayjs, { Dayjs } from "dayjs"
-import { useDispatch } from "react-redux"
-import { AppDispatch } from "@/redux/store"
-import { addBooking } from "@/redux/features/bookSlice"
-import { BookingItem } from "../../../interface"
-import { default as TextField } from "@mui/material"
+"use client";
 
-export default function Booking(){
-    
-    
-        // const session = await getServerSession(authOptions)
-        // if(!session || !session.user.token )return null
-    
-        // const profile = await getUserProfile(session.user.token)
-        // var createdAt = new Date(profile.data.createdAt)
+import DateReserve from "@/components/DateReserve";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
-        const generateBookingId = (): string => {
-            const randomNumber = Math.floor(100000 + Math.random() * 900000); // สุ่มตัวเลข 6 หลัก
-            return randomNumber.toString(); // แปลงตัวเลขเป็นสตริง
-        };
+export default function Booking() {
+  const [apptDate, setApptDate] = useState<Dayjs | null>(null);
+  const [coworkingSpace, setCoworkingSpace] = useState<string>("");
+  const router = useRouter();
 
-        const [nameLastname, setNameLastname] = useState<string>('')
-        const [contactNumber, setContactNumber] = useState<string>('')
-        const [venueName, setVenueName] = useState<string>('')
-        const [bookingDate, setBookingDate] = useState<Dayjs|null>(null)
+  const makeBooking = async () => {
+    if (apptDate && coworkingSpace) {
+      try {
+        const response = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            apptDate: dayjs(apptDate).format("YYYY/MM/DD"),
+            coworkingSpace: coworkingSpace,
+          }),
+        });
 
-        const dispatch = useDispatch<AppDispatch>() 
-
-        const makeBooking = () => {
-            
-            if ( nameLastname && contactNumber && venueName && bookingDate){
-                alert("complete");
-                const item:BookingItem = {
-                    bookingId: generateBookingId(),
-                    nameLastname: nameLastname,
-                    tel: contactNumber,
-                    venue: venueName,
-                    bookDate: dayjs(bookingDate).format("YYYY/MM/DD")
-                }
-                dispatch(addBooking(item))
-            }
+        if (response.ok) {
+          router.push('/');
+        } else {
+          alert('Failed to create reservation.');
         }
+      } catch (error) {
+        console.error('Error creating reservation:', error);
+        alert('An error occurred.');
+      }
+    } else {
+      alert('Please fill in all fields.');
+    }
+  };
 
-    return(
-        <main className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-green-150 p-6">
-            <div className="text-4xl font-bold text-gray-800 mb-6 drop-shadow-md">Co-Working Reservation</div>
-            <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md flex flex-col items-center space-y-6">
-            <DateReserve
-                handleNameChange={(value: string) => setNameLastname(value)}
-                handleContactChange={(value: string) => setContactNumber(value)}
-                onDateChange={(value: Dayjs) => setBookingDate(value)}
-                onVenueChange={(value: string) => setVenueName(value)}
-            />
-            <button
-                className="w-full rounded-xl bg-gradient-to-r from-green-400 to-green-600 hover:from-green-600 hover:to-green-400 px-4 py-2 text-white font-semibold shadow-lg transition-all transform hover:scale-105 duration-300 ease-in-out"
-                onClick={makeBooking}
-            >
-            Reserve
-            </button>
-            </div>
+  return (
+    <main className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-green-150 p-6">
+      <div className="text-4xl font-bold text-gray-800 mb-6 drop-shadow-md">Co-Working Reservation</div>
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md flex flex-col items-center space-y-6">
+        <DateReserve
+          onDateChange={(value: Dayjs | null) => setApptDate(value)}
+          onVenueChange={(value: string) => setCoworkingSpace(value)}
+        />
+        <button
+          className="w-full rounded-xl bg-gradient-to-r from-green-400 to-green-600 hover:from-green-600 hover:to-green-400 px-4 py-2 text-white font-semibold shadow-lg transition-all transform hover:scale-105 duration-300 ease-in-out"
+          onClick={makeBooking}
+        >
+          Reserve
+        </button>
+      </div>
     </main>
-    )
+  );
 }
