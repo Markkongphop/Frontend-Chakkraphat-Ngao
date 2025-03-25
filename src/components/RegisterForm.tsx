@@ -1,31 +1,38 @@
-"use server"
+// src/components/RegisterForm.ts
+"use server";
+
 export default async function RegisterForm(
-  userName: string,
-  userTel: string,
-  userEmail: string,
-  userPassword: string
+    userName: string,
+    userTel: string,
+    userEmail: string,
+    userPassword: string
 ) {
-  const response = await fetch( "https://backend-eta-ashy.vercel.app/api/v1/auth/register",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: userName,
-        telnumber: userTel,
-        email: userEmail,
-        password: userPassword,
-        role: "user",
-      }),
-    });
+    try {
+        const response = await fetch("https://backend-eta-ashy.vercel.app/api/v1/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: userName,
+                email: userEmail,
+                role: "user",
+                password: userPassword,
+                telephone: userTel,
+            }),
+        });
 
-  if (!response.ok) {
-    console.log("name== "+userName)
-    console.log("tel== "+userTel)
-    console.log("email== "+userEmail)    
-    console.log("Pw== "+userPassword)
-    throw new Error("Registration failed. Please try again.");
-  }
+        if (!response.ok) {
+            console.error("Registration failed:", response.status, response.statusText);
+            const errorData = await response.json();
+            console.error("Error details:", errorData);
+            throw new Error(`Registration failed: ${response.statusText}`);
+        }
 
-  return await response.json();
+        const result = await response.json();
+        return result; // Return the response data
+    } catch (error) {
+        console.error("Error in RegisterForm:", error);
+        throw error; // Rethrow the error to be handled in the component
+    }
 }

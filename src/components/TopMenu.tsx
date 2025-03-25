@@ -17,11 +17,17 @@ export default async function TopMenu() {
                             <div className={`${styles.signInButton} flex items-center`}>Sign-Out</div>
                         </Link>
                     ) : (
-                        <Link href="/api/auth/signin">
-                            <div className={`${styles.signInButton} flex items-center`}>Sign-In</div>
-                        </Link>
+                        <div className='mt-10 mx-2 flex flex-col items-start'>
+    <Link href="/register" className='my-2'>
+        <div className={`${styles.blueButton} flex items-center`}>Register</div>
+    </Link>
+    <Link href="/api/auth/signin" className='my-2'>
+        <div className={`${styles.signInButton} flex items-center`}>Sign-In</div>
+    </Link>
+</div>
                     )
                 }
+
                 <Link href="/booking">
                     <div className={`${styles.blueButton} flex items-center`}>Reservation</div>
                 </Link>
