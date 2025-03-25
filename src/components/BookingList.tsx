@@ -100,7 +100,7 @@ export default function BookingList() {
     return (
         <div className="w-full flex flex-col items-center justify-start pt-10 space-y-4">
             {bookings.length === 0 ? (
-                <div className="text-gray-700 text-xl font-semibold">No Venue Booking</div>
+                <div className="text-gray-700 text-xl font-semibold">No Co-Working Reservation</div>
             ) : (
                 bookings.map((bookingItem: BookingItem) => (
                     <div
