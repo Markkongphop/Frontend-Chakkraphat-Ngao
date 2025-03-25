@@ -1,7 +1,6 @@
-// src/components/RegisterForm.ts
 "use server";
 
-export default async function RegisterForm(
+export default async function userRegister(
     userName: string,
     userTel: string,
     userEmail: string,

@@ -1,7 +1,6 @@
-// src/app/register/page.tsx
 'use client';
 
-import RegisterForm from '@/components/RegisterForm';
+import userRegister from '@/libs/userRegister';
 import React, { useState } from 'react';
 
 function Register() {
@@ -9,14 +8,14 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [telephone, setTelephone] = useState('');
-    const [message, setMessage] = useState<string | null>(null); // For messages
+    const [message, setMessage] = useState<string | null>(null);
 
     const handleRegister = async () => {
         try {
-            const result = await RegisterForm(name, telephone, email, password);
+            const result = await userRegister(name, telephone, email, password);
             setMessage("Registration successful!");
             console.log("Registration successful:", result);
-            // Optionally, redirect the user or clear the form
+            
         } catch (error) {
             setMessage(`Registration failed: ${(error as Error).message}`);
             console.error("Registration error:", error);
@@ -25,7 +24,7 @@ function Register() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-700 p-6 relative overflow-hidden">
-            {/* Background Glow Effect */}
+            
             <div className="absolute inset-0 bg-gradient-radial from-blue-500/30 to-transparent blur-3xl opacity-60"></div>
             
             <div className="bg-gray-900 p-10 rounded-2xl shadow-xl w-full max-w-md relative z-10 border border-gray-700">
