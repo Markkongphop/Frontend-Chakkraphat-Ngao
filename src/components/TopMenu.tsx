@@ -40,7 +40,7 @@ export default async function TopMenu() {
             <div className={styles.logoWrapper}>
                 <Link href="/">
                     <Image
-                        src={'/img/Logo.png'}
+                        src={'/img/logo.png'}
                         className={styles.logoimg}
                         alt='logo'
                         width={150}
